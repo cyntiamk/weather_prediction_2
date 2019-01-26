@@ -1,0 +1,27 @@
+
+.circle{
+	background-color: transparent;
+	border-radius: 200px;
+	border: white 10px solid;
+	color: white;
+	height: 200px;
+	font-weight: bold;
+	font-size: 125px;
+	width: 200px;
+	text-align: center;
+}
+
+h3 {
+  color: white;
+}
+
+
+body {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.panel {
+  background-color: opacity:0.5;
+  color: black;
+}
