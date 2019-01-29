@@ -54,8 +54,6 @@ def create_recent_features(table_name, output_table):
 	date = pd.DataFrame(city_date)
 
 	city['Date'] = date.values
-
-	#del city['Unnamed: 0']
     
 	grouped_city = city.groupby('Date')
 	city_mean = grouped_city[['Mean_temp','Mean_dwp']].mean()
@@ -65,9 +63,14 @@ def create_recent_features(table_name, output_table):
 	dfs = [city_mean, city_max, city_min]
 
 	df_final = reduce(lambda left,right: pd.merge(left,right,on='Date'), dfs)
-	city_renamed = df_final.rename(columns={'Mean_temp': 'Avg_temp','Max_temp': 'Temp_max','Min_temp':'Temp_min',
-	                                       'Mean_dwp': 'Avg_dwp','Max_dwp': 'Max_dwp','Min_dwp': 'Min_dwp'})
-	features_city = list(city_renamed.columns.values)
+	city_renamed = df_final.rename(columns={'Mean_temp': 'Avg_temp',
+											'Mean_dwp': 'Avg_dwp',
+											'Max_temp': 'Temp_max',
+											'Max_dwp': 'Max_dwp',
+											'Min_temp':'Temp_min',                                       	
+	                                       	'Min_dwp': 'Min_dwp'})
+
+	features_city = ['Avg_temp', 'Avg_dwp', 'Temp_max', 'Max_dwp', 'Temp_min', 'Min_dwp']
 	#N is the number of days prior to the prediction, 3 days for this model
 	for feature in features_city:  
 	    if feature != 'Date':
@@ -187,11 +190,12 @@ def predicting_temp():
 	sorted_city['Actual_avg_temp'] = ''
 	sorted_city['Predicted_temp']= ''
 
-	sorted_city['Actual_avg_temp'] = actual_f
+	sorted_city['Actual_avg_temp'] = round(actual_f).astype(int)
 	sorted_city['Predicted_temp'] = avg_fahrenheit
 
 	# Create new dataframe with only Average temperature collected and compare with predicted temperature 
-	predictions_df = sorted_city[['Actual_avg_temp','Predicted_temp',]]
+	predictions_df = sorted_city[['Actual_avg_temp','Predicted_temp']]
+	predictions_df['Difference'] =  predictions_df.Actual_avg_temp - predictions_df.Predicted_temp
 
 	# save prediction dataframe into csv
 	predictions_df.to_sql(city + '_prediction',con=connex, if_exists="replace", index=True)

@@ -15,6 +15,11 @@ h3 {
   color: white;
 }
 
+h6 {
+	color: white;
+	font-weight: 900;
+}
+
 
 body {
   background-repeat: no-repeat;

@@ -20,18 +20,27 @@ function get_owm(selected_city) {
 					Wind: data[0].Wind_speed};
 		//console.log(weatherInfo)
 		Object.entries(weatherInfo).forEach(([key,value]) => {
-			panel.append("h6").text(`${key}: ${value}`);
+			panel.append("h5").text(`${key}: ${value}`);
 		})
 	});
 	d3.json(`/prediction?selected_city=${selected_city}`).then((predData) => {
-	console.log(predData[1]) 
-	
+	//console.log(predData[0]) 
+		var currentAvg = {current_avg: predData[0]};
+		console.log(currentAvg)
+		Object.entries(currentAvg).forEach(([key,value]) =>{
+			var h6= document.getElementById("current-avg").innerHTML =`Current Average Temperature: ${value}`;
+			h6.html("")
+			})
+	});
+		d3.json(`/prediction?selected_city=${selected_city}`).then((predData) => {
+	//console.log(predData[0]) 
 	var predictedTemp = {Predicted_temp: predData[1]};
 	console.log(predictedTemp)
 	Object.entries(predictedTemp).forEach(([key,value]) =>{
 		var span = document.getElementById("prediction").innerHTML =`${value}`;
 		span.html("")
 	})
+
 	});
 
 	var bgImage = {
