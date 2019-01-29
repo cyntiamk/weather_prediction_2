@@ -18,6 +18,7 @@ import requests
 import pickle
 from sklearn.linear_model import Ridge
 from sklearn.metrics import r2_score, mean_squared_error
+from sklearn.externals import joblib
 
 # Dependencies
 import openweathermapy as ow
@@ -64,8 +65,7 @@ def create_recent_features(table_name, output_table):
 	dfs = [city_mean, city_max, city_min]
 
 	df_final = reduce(lambda left,right: pd.merge(left,right,on='Date'), dfs)
-	city_organized = df_final[['Mean_temp','Max_temp','Min_temp','Mean_dwp','Max_dwp','Min_dwp']]
-	city_renamed = city_organized.rename(columns={'Mean_temp': 'Avg_temp','Max_temp': 'Temp_max','Min_temp':'Temp_min',
+	city_renamed = df_final.rename(columns={'Mean_temp': 'Avg_temp','Max_temp': 'Temp_max','Min_temp':'Temp_min',
 	                                       'Mean_dwp': 'Avg_dwp','Max_dwp': 'Max_dwp','Min_dwp': 'Min_dwp'})
 	features_city = list(city_renamed.columns.values)
 	#N is the number of days prior to the prediction, 3 days for this model
@@ -73,7 +73,8 @@ def create_recent_features(table_name, output_table):
 	    if feature != 'Date':
 	        for N in range(1, 4):
 	            new_features(city_renamed, feature, N)
-	city_renamed.to_sql(name=output_table, con=connex, if_exists="replace", index=True)
+	clean_df = city_renamed.dropna()
+	clean_df.to_sql(name=output_table, con=connex, if_exists="replace", index=True)
 
 def run_feat():
 	manly_recent = 'manly_recent'
@@ -155,26 +156,27 @@ def predicting_temp():
 
 	city_df = pd.read_sql(query, con=connex).set_index('Date')
 	sorted_city = city_df.sort_values('Date', ascending=False)
-	clean_df = sorted_city.dropna()
-	predictors = ['Avg_temp_1', 'Avg_temp_2', 'Avg_temp_3', 
-	              'Avg_dwp_1', 'Avg_dwp_2', 'Avg_dwp_3',
-	              'Max_dwp_1',  'Max_dwp_2', 'Max_dwp_3',
-	              'Min_dwp_1','Min_dwp_2','Min_dwp_3']
+	
+	predictors = ['Avg_temp_1', 'Avg_temp_2', 'Avg_temp_3', 'Temp_max_1', 'Temp_max_2',
+       'Temp_min_1', 'Temp_min_3', 'Avg_dwp_2', 'Avg_dwp_3', 'Min_dwp_1',
+       'Min_dwp_3']
 
-	X = clean_df[predictors]
-	y= clean_df['Avg_temp']
+	X = sorted_city[predictors]
+	y= sorted_city['Avg_temp']
+
+	scaler = joblib.load(open('concat_scaler.save', 'rb'))
+	X_scaled = scaler.transform(X)
+
 	# import ridge model to predict temperature with recent features created
-	model_avg_temp = pickle.load(open('ridge_concat_temp.pkl', 'rb'))
-	# refit the model with recent data
-	#model_avg_temp.fit(X,y)
+	model = pickle.load(open('ridge_concat_feats.pkl', 'rb'))
 
-	avg_temp = model_avg_temp.predict(X)
+	y_predicted = model.predict(X_scaled)
 
 
 	# apply function to convert temperature into Fahrenheit
-	actual_f = c_to_f(clean_df['Avg_temp'])
+	actual_f = c_to_f(sorted_city['Avg_temp'])
 
-	avg_f = c_to_f(avg_temp)
+	avg_f = c_to_f(y_predicted)
 
 	avg_fahrenheit = []
 
@@ -182,14 +184,14 @@ def predicting_temp():
 	    avg_fahrenheit.append(int(avg_f.item(i)))
 
 	# grab values and add to dataframe  
-	clean_df['Actual_avg_temp'] = ''
-	clean_df['Predicted_temp']= ''
+	sorted_city['Actual_avg_temp'] = ''
+	sorted_city['Predicted_temp']= ''
 
-	clean_df['Actual_avg_temp'] = actual_f
-	clean_df['Predicted_temp'] = avg_fahrenheit
+	sorted_city['Actual_avg_temp'] = actual_f
+	sorted_city['Predicted_temp'] = avg_fahrenheit
 
 	# Create new dataframe with only Average temperature collected and compare with predicted temperature 
-	predictions_df = clean_df[['Actual_avg_temp','Predicted_temp',]]
+	predictions_df = sorted_city[['Actual_avg_temp','Predicted_temp',]]
 
 	# save prediction dataframe into csv
 	predictions_df.to_sql(city + '_prediction',con=connex, if_exists="replace", index=True)
