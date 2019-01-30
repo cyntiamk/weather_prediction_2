@@ -26,21 +26,32 @@ function get_owm(selected_city) {
 	d3.json(`/prediction?selected_city=${selected_city}`).then((predData) => {
 	//console.log(predData[0]) 
 		var currentAvg = {current_avg: predData[0]};
-		console.log(currentAvg)
+		//console.log(currentAvg)
 		Object.entries(currentAvg).forEach(([key,value]) =>{
 			var h4 = document.getElementById("current-avg").innerHTML =`${value}`;
 			h4.html("")
 			})
 	});
 	d3.json(`/prediction?selected_city=${selected_city}`).then((predData) => {
-		//console.log(predData[0]) 
+		//console.log(predData[1]) 
 		var predictedTemp = {Predicted_temp: predData[1]};
-		console.log(predictedTemp)
+		//console.log(predictedTemp)
 		Object.entries(predictedTemp).forEach(([key,value]) =>{
 			var span = document.getElementById("prediction").innerHTML =`${value}`;
 			span.html("")
 	})
 
+	});
+
+		d3.json(`/tomorrows_prediction?selected_city=${selected_city}`).then((tomData) => {
+		console.log(tomData[0]['Tomorrows']) 
+		var predictedTom= {Predicted_tom: tomData[0]['Tomorrows']};
+		//console.log(predictedTemp)
+		Object.entries(predictedTom).forEach(([key,value]) =>{
+
+			var span = document.getElementById("tomorrow-prediction").innerHTML =`${value}`;
+			span.html("")
+		})
 	});
 
 	var bgImage = {
@@ -53,7 +64,7 @@ function get_owm(selected_city) {
 		Salvador: 'url(/static/css/img/salvador.jpg)'
 		};
 		var selected_value = bgImage[selected_city]
-		console.log(selected_value)
+		//console.log(selected_value)
 
 		var bgBody = document.body.style["background-image"] = selected_value;
 

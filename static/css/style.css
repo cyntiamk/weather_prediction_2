@@ -1,4 +1,10 @@
 
+.navbar {
+	background-color: rgba(0, 0, 0, 0.75);
+	border-color: black;
+
+}
+
 .circle.pred {
 	background-color: transparent;
 	border-radius: 200px;
@@ -35,6 +41,12 @@
 .card-header {
 	text-decoration: underline;
 	text-decoration-color: white;
+}
+
+.tomorrow {
+	color: white;
+	font-weight: bold;
+	font-size: 35px
 }
 
 h3 {
