@@ -10,46 +10,66 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="/static/css/style.css">
     </head>
-  <body>
+<body>
   <div class="container-fluid">
-
-  <div class="row"> 
-    <div class="col-md-2">  
-    <select class="btn btn-light dropdown-toggle" style="opacity: 0.75" name="dropdownSelect" id="dropdownSelect" onchange="get_owm(this.value)"> 
-        <option value="Amsterdam">Amsterdam</option>
-        <option value="Irvine">Irvine</option>
-        <option value="Lihue">Lihue</option>
-        <option value="Kyoto">Kyoto</option>
-        <option value="Nice">Nice</option>
-        <option value="Manly">Manly</option>
-        <option value="Salvador">Salvador</option>
-    </select>
-    </div>  
-  </div>
-  <br>
-
-  <div class="row">
-    <div class="col-md-2" style='position: absolute; bottom: 23em; left: 0;'> 
-    <div class="panel-position">
-      <div class="panel panel-primary" style="opacity: 0.75">
-        <div class="panel-heading">
-          <h3 class="panel-title">Current Weather</h3>
-        </div>
-      <div id= "panel-status" class="panel-body"></div>
-    </div>
-    </div>
-  </div>
-  <div class="col-md-6"></div>
-       <div class="col-md-5 pull-right text-right">
-        <h3>Predicted Average Temperature</h3>
-        <h6 id="current-avg"></h6>
-        <hr>
-        <div class="d-flex justify-content-between">
-          <p class="circle pull-right" style="opacity: 0.90"><span id="prediction" style="opacity: 0.9"></span></p>
+    <div class="row">
+      <div class="col-md-2" style='position: absolute; bottom: 30em; left: 2em; '> 
+        <div class="panel-position">
+          <div class="panel panel-primary" style="opacity: 0.75">
+            <div class="panel-heading">
+              <h3 class="panel-title text-center">Current Weather</h3>
+            </div>
+            <select class="btn btn-light dropdown-toggle center-block" style="opacity: 0.85" name="dropdownSelect" id="dropdownSelect" onchange="get_owm(this.value)"> 
+            <option value="Amsterdam">Amsterdam</option>
+            <option value="Irvine">Irvine</option>
+            <option value="Lihue">Lihue</option>
+            <option value="Kyoto">Kyoto</option>
+            <option value="Nice">Nice</option>
+            <option value="Manly">Manly</option>
+            <option value="Salvador">Salvador</option>
+            </select>
+            <div id= "panel-status" class="panel-body text-center"></div>
+          </div>
         </div>
       </div>
     </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-5 pull-right text-right">
+      <h3>Predicted Average Temperature</h3> 
+      <hr>
+      <div class="d-flex justify-content-between">
+        <p class="circle pull-right pred" style="opacity: 0.90"><span id="prediction" style="opacity: 0.9"></span></p>
+      </div>
+    </div>  
+
+    <div class="row">
+      <div class="col-md-3 col-lg-3 col-right">
+        <p class="circle actual"><span id="current-avg" style="opacity: 0.75"></span></p>
+      </div>
+    </div>
+    <div class="row bottom-card">
+      <div class="col-md-12">
+        <div class="w-100" style="background-color: rgba(0,0,0,0.75);">
+        <div class="card-header"><h3>Behind the scenes</h3></div>
+        <div class="card-body text-info" style="height: 270px;">
+          <h4 class="card-title">This application tries to predict the average temperature in Fahrenheit for the following day based on measuruments of the three previous days. To accomplish this task, the following steps are happening in the background whenever a city is selected from the dropdown menu:</h4>
+          <ul>
+            <li><h4>A script is running every 60 minutes to gather weather information for the 7 cities in this application</h4></li>
+            <li><h4>When one city is selected, a request is made to the OpenWeather API for the most current weather information (displayed on the left panel).</h4></li>
+            <li><h4>At the same  time, another script retrieves the most recent weather measurements for the selected city.</h4></li>
+            <li><h4>New features are created so a prediction can be made utilizing the trained Ridge Regression model</h4></li>
+            <li><h4>The result displayed on the right circle is the predicted average temperature for the current day</h4></li>
+            <li><h4>The result displayed on the left circle is the average temperature measured so far.</h4></li>
+            <li><h4>The model was trained on historical bulk data acquired from the OpenWeatherMap from 01/01/2017 until 12/31/2018 from Kyoto, Manly, Nice, Salvador, Lihue</h4></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
+
 
  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>  

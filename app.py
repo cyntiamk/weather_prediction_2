@@ -135,7 +135,7 @@ def query_owm():
 	data.append(weather_response.json())
 	for measure in data:
 	    current_dict = {
-	        "City": (measure['name']),
+	        #"City": (measure['name']),
 	        "Description": (measure['weather'][0]['main']),
 	        "Temperature": (measure['main']['temp']),
 	        "Humidity": (measure['main']['humidity']),

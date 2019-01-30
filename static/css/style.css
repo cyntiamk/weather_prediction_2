@@ -1,14 +1,40 @@
 
-.circle{
+.circle.pred {
 	background-color: transparent;
 	border-radius: 200px;
-	border: white 10px solid;
+	border: rgba(255, 255, 255, 0.8) 10px solid;
 	color: white;
 	height: 200px;
 	font-weight: bold;
 	font-size: 125px;
 	width: 200px;
 	text-align: center;
+}
+
+.circle.actual {
+	background-color: rgba(255, 255, 255, 0.8);;
+	border-radius: 100px;
+	border: #428bca 1px solid;
+	color: black;
+	height: 100px;
+	font-weight: bold;
+	font-size: 65px;
+	width: 100px;
+	text-align: center;
+	position: absolute;
+}
+
+
+.col-right {
+	margin-left: 12em;
+	margin-top: 15em;
+}
+.bottom-card {
+	margin-top: 20em;
+}
+.card-header {
+	text-decoration: underline;
+	text-decoration-color: white;
 }
 
 h3 {
@@ -22,11 +48,17 @@ h6 {
 
 
 body {
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: cover;
 }
 
 .panel {
   background-color: opacity:0.5;
   color: black;
+}
+
+div.card {
+  width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
 }

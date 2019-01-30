@@ -13,7 +13,7 @@ function get_owm(selected_city) {
 		var panel = d3.select("#panel-status");
 		panel.html("");
 		var weatherInfo = 
-					{City: data[0].City,
+					{//City: data[0].City,
 					Description: data[0].Description,
 					Temperature: Number((data[0].Temperature).toFixed(0)),
 					Humidity: data[0].Humidity ,
@@ -28,17 +28,17 @@ function get_owm(selected_city) {
 		var currentAvg = {current_avg: predData[0]};
 		console.log(currentAvg)
 		Object.entries(currentAvg).forEach(([key,value]) =>{
-			var h6= document.getElementById("current-avg").innerHTML =`Current Average Temperature: ${value}`;
-			h6.html("")
+			var h4 = document.getElementById("current-avg").innerHTML =`${value}`;
+			h4.html("")
 			})
 	});
-		d3.json(`/prediction?selected_city=${selected_city}`).then((predData) => {
-	//console.log(predData[0]) 
-	var predictedTemp = {Predicted_temp: predData[1]};
-	console.log(predictedTemp)
-	Object.entries(predictedTemp).forEach(([key,value]) =>{
-		var span = document.getElementById("prediction").innerHTML =`${value}`;
-		span.html("")
+	d3.json(`/prediction?selected_city=${selected_city}`).then((predData) => {
+		//console.log(predData[0]) 
+		var predictedTemp = {Predicted_temp: predData[1]};
+		console.log(predictedTemp)
+		Object.entries(predictedTemp).forEach(([key,value]) =>{
+			var span = document.getElementById("prediction").innerHTML =`${value}`;
+			span.html("")
 	})
 
 	});
