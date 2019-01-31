@@ -237,11 +237,11 @@ def predicting_temp():
 	X = sorted_city[predictors]
 	y= sorted_city['Avg_temp']
 
-	scaler = joblib.load(open('concat_scaler.save', 'rb'))
+	scaler = joblib.load(open('final_scaler.save', 'rb'))
 	X_scaled = scaler.transform(X)
 
 	# import ridge model to predict temperature with recent features created
-	model = pickle.load(open('ridge_concat_feats.pkl', 'rb'))
+	model = pickle.load(open('ridge_final_model.pkl', 'rb'))
 
 	y_predicted = model.predict(X_scaled)
 
@@ -290,11 +290,11 @@ def predicting_tomorrow():
 
 	X = city_df[predictors]
 	
-	scaler = joblib.load(open('concat_scaler.save', 'rb'))
+	scaler = joblib.load(open('final_scaler.save', 'rb'))
 	X_scaled = scaler.transform(X)
 
 	# import ridge model to predict temperature with recent features created
-	model = pickle.load(open('ridge_concat_feats.pkl', 'rb'))
+	model = pickle.load(open('ridge_final_model.pkl', 'rb'))
 
 	y_predicted = model.predict(X_scaled)
 
