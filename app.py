@@ -190,6 +190,9 @@ app = Flask(__name__)
 def index():
 	return render_template('index.html')
 
+@app.route("/analysis.html")
+def analysis():
+	return render_template("analysis.html")
 
 @app.route('/weather', methods=['GET', 'POST'])
 def query_owm():
