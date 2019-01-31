@@ -1,4 +1,4 @@
-# Weather prediction (IN PROGRESS)
+# Weather prediction 
 Using a Machine Learning model, try to predict weather temperatures.
 
 Steps so far accomplished:
