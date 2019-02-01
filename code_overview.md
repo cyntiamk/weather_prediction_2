@@ -70,3 +70,5 @@ model = sm.OLS(y, X).fit()
 model.summary()  
 
 ```
+
+![alt tag]("p-values")
