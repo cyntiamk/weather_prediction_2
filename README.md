@@ -21,7 +21,7 @@ Steps so far accomplished:
 ### Tools/Resources
 - Python: Pandas, Sklearn, Numpy
 - Web: JavaScript, HTML, CSS, Flask
-- Analysis: Matplotlib? plotly? d3.js?
+- Analysis: Plotly.js
 - File type: JSON 
 - Database: SQLite
 - Source: www.openweathermap.org
