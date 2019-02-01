@@ -58,6 +58,10 @@ clean_df = df_final.dropna()
 # a p-value helps you determine the significance of your results
 # what the data are telling you about the Average Temperature 
 # (p-value < 0.05 strong evidence)
+```
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/predictors.png?raw=true "df_final")
+
+```python
 
 import statsmodels.api as sm
 
