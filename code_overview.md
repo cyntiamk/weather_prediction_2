@@ -1,7 +1,7 @@
 
 
 ### Data pre-processing:
-- This experiemnt was heavily based on the tutorial: https://stackabuse.com/using-machine-learning-to-predict-the-weather-part-1/
+- This experiement was heavily based on the tutorial: https://stackabuse.com/using-machine-learning-to-predict-the-weather-part-1/
 
 #### Transforming data
 ```python
@@ -72,3 +72,92 @@ model.summary()
 ```
 
 ![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/p-value.png?raw=true "p-values")
+
+```python
+X = X.drop('Max_dwp_1', axis=1)
+
+# (5) Fit the model 
+model = sm.OLS(y, X).fit()
+
+# After all p-values greater than 0.05 have been removed, drop the 'const' column and use the rest as you X
+
+X_clean = X.drop('const', axis=1)
+```
+#### Scaling the X and fitting in the models
+```python
+from sklearn.preprocessing import StandardScaler
+
+# Create a StandardScater model and fit it to the training data
+X_scaler = StandardScaler().fit(X_clean)
+
+# Save the scaler to be used on the new data
+from sklearn.externals import joblib
+scaler_filename = "final_scaler.save"
+joblib.dump(X_scaler, scaler_filename)
+
+from sklearn.linear_model import LinearRegression
+# define the model
+linear = LinearRegression()
+
+# train the model/ fit the model 
+linear.fit(X_scaled, y)
+
+# predict
+y_linear_prediction = linear.predict(X_scaled)
+
+# use evaluation metrics to determine model performance
+```
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/model_eval.png?raw=true "model_eval")
+```python
+#save model
+import pickle
+with open('linear_final_model.pkl', 'wb') as file:
+    pickle.dump(linear, file)
+```
+
+### New data collection
+#### Open Weather API
+```python
+# function with simple API query to gather new data for prediction
+url = "http://api.openweathermap.org/data/2.5/weather?"
+units = "metric"
+city = url + "appid=" + api_key + "&q=" + city_name +"&units="+ units
+
+weather_response = requests.get(city)
+data.append(weather_response.json())
+
+# timer running every 60 minutes gathering date for the 7 cites
+```python
+
+while(True):
+    run_all_json()
+    time.sleep(3600)
+# Store into SQLite
+```
+#### Flask
+1. Query OWM for current weather conditions on selected city
+2. Retrieve recent weather stored in SQLite 
+3. Create features for selected city
+4. Scale X with saved scaler
+5. Predict the Average Temperature 
+6. Convert into Fahrenheit with the function
+```python
+def c_to_f(c):
+    return ((c*9/5) + 32).round(1)
+```
+7. Submit to JavaScript and save to SQLite
+8. Display result into HTML
+9. All the steps are repeated every time a new city is selected.
+
+#### JavaScript
+```javascript
+d3.json(`/prediction?selected_city=${selected_city}`).then((predData) => {
+	//console.log(predData[1]) 
+	var predictedTemp = {Predicted_temp: predData[1]};
+	//console.log(predictedTemp)
+	Object.entries(predictedTemp).forEach(([key,value]) =>{
+		var span = document.getElementById("prediction").innerHTML =`${value}`;
+		span.html("")
+})
+});
+```
