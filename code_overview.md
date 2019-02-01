@@ -1,7 +1,7 @@
 
 
 ### Data pre-processing:
-- This experiement was heavily based on the tutorial: https://stackabuse.com/using-machine-learning-to-predict-the-weather-part-1/
+- This link: https://stackabuse.com/using-machine-learning-to-predict-the-weather-part-1/ was very helpful for this experiment.
 
 #### Transforming data
 ```python
