@@ -14,12 +14,23 @@
   <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="index.html" class="navbar-brand "style="color:white;">Tomorrow's Prediction: </a>
-      <span id="tomorrow-prediction" class="tomorrow"></span>
+      <a href="#" class="navbar-brand "style="color:white;">Tomorrow's Prediction</a>
+      <ul class="nav navbar-nav pull-left" style="color:white;">
+        <li><a href="#">avg:</a></li>  
+        <span id="tomorrow-prediction" class="tomorrow"></span>    
+      </ul>
+      <ul class="nav navbar-nav pull-left" style="color:white;">
+        <li><a href="#">max:</a></li>  
+        <span id="tomorrow-max" class="tomorrow-max"></span>    
+      </ul>
+      <ul class="nav navbar-nav pull-left" style="color:white;">
+        <li><a href="#">min:</a></li>  
+        <span id="tomorrow-min" class="tomorrow-min"></span>    
+      </ul>
     </div>
     <ul class="nav navbar-nav pull-right" style="color:white;">
       <li><a href="analysis.html">Analysis</a></li>
-      <li><a href="https://github.com/cyntiamk/weather_prediction_2/blob/master/README.md" target="_blank">The Project</a></li>
+      <li><a href="https://github.com/cyntiamk/weather_prediction_2/blob/master/README.md" target="_blank">Project Repo</a></li>
     </ul>
   </div>
 </nav>
@@ -48,6 +59,12 @@
     <div class="col-md-6"></div>
     <div class="col-md-5 pull-right text-right">
       <h3>Predicted Average Temperature</h3> 
+      <div class="table">
+      <ul id="horizontal-list">
+        <li ><p>max:</p><span id="max-prediction" class="max-prediction" ></span></li>  
+        <li ><p>min:</p><span id="min-prediction" class="min-prediction"></span></li>  
+      </ul>
+    </div>
       <hr>
       <div class="d-flex justify-content-between">
         <p class="circle pull-right pred" style="opacity: 0.90"><span id="prediction" style="opacity: 0.9"></span></p>

@@ -71,5 +71,7 @@ function get_owm(selected_city) {
 
 }
 
+
+
 get_owm(selected_city)
 

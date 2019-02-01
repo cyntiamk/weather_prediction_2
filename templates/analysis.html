@@ -7,34 +7,213 @@
         <title>Weather Tomorrow</title>
         <!--<script src="https://d3js.org/d3.v4.js"></script>-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="/static/css/style.css">
     </head>
-<body>
+<body style="background: linear-gradient(to right, #009999 0%, #ffffff 100%)" >
   <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="index.html" class="navbar-brand "style="color:white;">Tomorrow's Prediction: </a>
+      <a href="/" class="navbar-brand "style="color:white;">Home</a>
       <span id="tomorrow-prediction" class="tomorrow"></span>
     </div>
     <ul class="nav navbar-nav pull-right" style="color:white;">
       <li><a href="analysis.html">Analysis</a></li>
-      <li><a href="https://github.com/cyntiamk/weather_prediction_2/blob/master/README.md" target="_blank">The Project</a></li>
+      <li><a href="https://github.com/cyntiamk/weather_prediction_2/blob/master/README.md" target="_blank">Project Repo</a></li>
     </ul>
   </div>
 </nav>
   <div class="container-fluid">
+    <div class="row">
+      
+      <div class="col-md-4" style="position: absolute; top: 5em; left: 2em;">
+        <table style="width:100%">
+        <caption><strong>Models Training Perfomances</strong></caption>
+          <tr style="opacity: 0.75">
+            <th></th>
+            <th>r2_score</th>
+            <th>MSE</th>
+          </tr>
+          <tr style="opacity: 0.75">
+            <td>Linear</td>
+            <td>0.950</td>
+            <td>2.59</td>
+          </tr>
+          <tr style="opacity: 0.75">
+            <td>Ridge</td>
+            <td>0.942</td>
+            <td>2.98</td>
+            </tr>
+          <tr style="opacity: 0.75">
+            <td>DTR</td>
+            <td>0.948</td>
+            <td>2.68</td>
+          </tr>
+    </table> 
+    <div class="col-md-4"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4" style="position: absolute; top: 25em; left: 2em;">
+      <table style="width:25%">
+        <caption><strong>Temperature Variance Comparison (F)</strong></caption>
+          <tr style="opacity: 0.75">
+            <th></th>
+            <th>Amsterdam</th>
+            <th>Irvine</th>
+            <th>Kauai</th>
+            <th>Kyoto</th>
+            <th>Nice</th>
+            <th>Manly</th>
+            <th>Salvador</th>
+          </tr>
+          <tr style="opacity: 0.75">
+            <td>Linear</td>
+            <td>3.1</td>
+            <td>2.9</td>
+            <td>1.3</td>
+            <td>4.0</td>
+            <td>1.8</td>
+            <td>2.4</td>
+            <td>0.8</td>
+          </tr>
+          <tr style="opacity: 0.75">
+            <td>Ridge</td>
+            <td>3.7</td>
+            <td>3.5</td>
+            <td>1.5</td>
+            <td>3.6</td>
+            <td>2.1</td>
+            <td>1.7</td>
+            <td>1.2</td>
+           </tr>
+          <tr style="opacity: 0.75">
+            <td>DTR</td>
+            <td>3.3</td>
+            <td>2.3</td>
+            <td>1.3</td>
+            <td>4.4</td>
+            <td>2.0</td>
+            <td>2.3</td>
+            <td>1.0</td>
+          </tr>
+    </table> 
+  </div> 
+  <div class="col-md-1"></div>
+  <div class="col-md-4" style="position: absolute; top: 20em; right: 20em;">
+    <div id="graph1" style="width:550px;height:350px; opacity: 0.75"></div>
+  </div> 
+</div>
+   <div class="row">
+      <div class="col-md-4" style="position: absolute; top: 60em; left: 2em;">
+      <table style="width:25%">
+        <caption><strong>R2_SCORE on new data</strong></caption>
+          <tr style="opacity: 0.75">
+            <th></th>
+            <th>Amsterdam</th>
+            <th>Irvine</th>
+            <th>Kauai</th>
+            <th>Kyoto</th>
+            <th>Nice</th>
+            <th>Manly</th>
+            <th>Salvador</th>
+          </tr>
+          <tr style="opacity: 0.75">
+            <td>Linear</td>
+            <td>0.369</td>
+            <td>-0.635</td>
+            <td>0.367</td>
+            <td>-1.362</td>
+            <td>-0.193</td>
+            <td>0.411</td>
+            <td>-1.069</td>
+          </tr>
+          <tr style="opacity: 0.75">
+            <td>Ridge</td>
+            <td>0.208</td>
+            <td>-1.758</td>
+            <td>0.128</td>
+            <td>-0.902</td>
+            <td>-0.166</td>
+            <td>0.542</td>
+            <td>-1.388</td>
+           </tr>
+          <tr style="opacity: 0.75">
+            <td>DTR</td>
+            <td>0.276</td>
+            <td>-0.067</td>
+            <td>0.052</td>
+            <td>-1.899</td>
+            <td>-0.3</td>
+            <td>0.357</td>
+            <td>-1.838</td>
+          </tr>
+    </table> 
+  </div> 
+    <div class="col-md-4" style="position: absolute; top: 55em; right: 20em;">
+    <div id="graph2" style="width:550px;height:350px; opacity: 0.75"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4t" style="position: absolute; top: 95em; left: 2em;">
+    <table style="width:25%">
+        <caption><strong>MSE on new recent data</strong></caption>
+          <tr style="opacity: 0.75">
+            <th></th>
+            <th>Amsterdam</th>
+            <th>Irvine</th>
+            <th>Kauai</th>
+            <th>Kyoto</th>
+            <th>Nice</th>
+            <th>Manly</th>
+            <th>Salvador</th>
+          </tr>
+          <tr style="opacity: 0.75">
+            <td>Linear</td>
+            <td>5.20</td>
+            <td>2.76</td>
+            <td>0.79</td>
+            <td>7.03</td>
+            <td>1.64</td>
+            <td>3.20</td>
+            <td>0.29</td>
+          </tr>
+          <tr style="opacity: 0.75">
+            <td>Ridge</td>
+            <td>6.51</td>
+            <td>4.77</td>
+            <td>1.08</td>
+            <td>5.53</td>
+            <td>1.60</td>
+            <td>2.74</td>
+            <td>0.33</td>
+           </tr>
+          <tr style="opacity: 0.75">
+            <td>DTR</td>
+            <td>5.89</td>
+            <td>1.82</td>
+            <td>0.04</td>
+            <td>8.38</td>
+            <td>1.75</td>
+            <td>3.60</td>
+            <td>0.38</td>
+          </tr>
+    </table> 
+  </div>
+    <div class="col-md-4" style="position: absolute; top: 90em; right: 20em;">
+    <div id="graph3" style="width:550px;height:350px; opacity: 0.75"></div>
+  </div>
+</div>
+
+</div>
 
 
 
   </div>
-
-
- 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>  
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="/static/js/app.js"></script>
-
+  <script src="/static/js/analysis.js"></script>
 
 </body>
 
