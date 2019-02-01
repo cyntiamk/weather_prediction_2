@@ -71,4 +71,4 @@ model.summary()
 
 ```
 
-![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/p-value.png"p-values")
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/p-value.png?raw=true "p-values")
