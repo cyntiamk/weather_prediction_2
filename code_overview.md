@@ -72,3 +72,38 @@ model.summary()
 ```
 
 ![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/p-value.png?raw=true "p-values")
+
+```python
+X = X.drop('Max_dwp_1', axis=1)
+
+# (5) Fit the model 
+model = sm.OLS(y, X).fit()
+
+# After all p-values greater than 0.05 have been removed, drop the 'const' column and use the rest as you X
+
+X_clean = X.drop('const', axis=1)
+```
+#### Scaling the X and fitting in the models
+```python
+from sklearn.preprocessing import StandardScaler
+
+# Create a StandardScater model and fit it to the training data
+X_scaler = StandardScaler().fit(X_clean)
+
+# Save the scaler to be used on the new data
+from sklearn.externals import joblib
+scaler_filename = "final_scaler.save"
+joblib.dump(X_scaler, scaler_filename)
+
+from sklearn.linear_model import LinearRegression
+# define the model
+linear = LinearRegression()
+
+# train the model/ fit the model 
+linear.fit(X_scaled, y)
+
+# predict
+y_linear_prediction = linear.predict(X_scaled)
+
+# use evaluation metrics to determine model performance
+```
