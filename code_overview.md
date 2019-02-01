@@ -107,3 +107,4 @@ y_linear_prediction = linear.predict(X_scaled)
 
 # use evaluation metrics to determine model performance
 ```
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/model_eval.png?raw=true "model_eval")
