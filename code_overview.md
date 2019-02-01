@@ -1,7 +1,7 @@
 
 
 ### Data pre-processing:
-- This experiement was heavily based on the tutorial: https://stackabuse.com/using-machine-learning-to-predict-the-weather-part-1/
+- This link: https://stackabuse.com/using-machine-learning-to-predict-the-weather-part-1/ was very helpful for this experiment.
 
 #### Transforming data
 ```python
@@ -48,6 +48,9 @@ for feature in features_city:
 
 clean_df = df_final.dropna()
 ```
+
+ ![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/feats_nan.png?raw=true "df_final")
+
 ![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/df_feats.png?raw=true "features")
 ### Machine Learning
 #### Removing noise (or high p-value features)
