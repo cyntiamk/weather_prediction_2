@@ -23,6 +23,7 @@ city_min= grouped_city[['Temp_min','Min_dwp']].min()
 dfs = [city_mean, city_max, city_min]
 df_final = reduce(lambda left,right: pd.merge(left,right,on='Date'), dfs)
  ```
+ ![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/df_initial.png?raw=true "df_final")
  #### Creating features
  
  ```python
@@ -47,6 +48,7 @@ for feature in features_city:
 
 clean_df = df_final.dropna()
 ```
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/df_feats.png?raw=true "features")
 ### Machine Learning
 #### Removing noise (or high p-value features)
 ```python
@@ -83,6 +85,8 @@ model = sm.OLS(y, X).fit()
 
 X_clean = X.drop('const', axis=1)
 ```
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/feats_list.png?raw=true "feats_list")
+
 #### Scaling the X and fitting in the models
 ```python
 from sklearn.preprocessing import StandardScaler
