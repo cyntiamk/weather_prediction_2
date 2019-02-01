@@ -1,7 +1,7 @@
 
 
 ### Data pre-processing:
-- This experiemnt was heavily based on the tutorial: https://stackabuse.com/using-machine-learning-to-predict-the-weather-part-1/
+- This experiement was heavily based on the tutorial: https://stackabuse.com/using-machine-learning-to-predict-the-weather-part-1/
 
 #### Transforming data
 ```python
@@ -151,13 +151,13 @@ def c_to_f(c):
 
 #### JavaScript
 ```javascript
-	d3.json(`/prediction?selected_city=${selected_city}`).then((predData) => {
-		//console.log(predData[1]) 
-		var predictedTemp = {Predicted_temp: predData[1]};
-		//console.log(predictedTemp)
-		Object.entries(predictedTemp).forEach(([key,value]) =>{
-			var span = document.getElementById("prediction").innerHTML =`${value}`;
-			span.html("")
-	})
-	});
+d3.json(`/prediction?selected_city=${selected_city}`).then((predData) => {
+	//console.log(predData[1]) 
+	var predictedTemp = {Predicted_temp: predData[1]};
+	//console.log(predictedTemp)
+	Object.entries(predictedTemp).forEach(([key,value]) =>{
+		var span = document.getElementById("prediction").innerHTML =`${value}`;
+		span.html("")
+})
+});
 ```
