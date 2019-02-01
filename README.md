@@ -1,4 +1,8 @@
-![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/front_page.png?raw=true "p-values")
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/front_page.png?raw=true "front_page")
+
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/analysis_page.png?raw=true "analysis_page")
+
+
 # Weather prediction 
 Using a Machine Learning model, try to predict weather temperatures.
 
