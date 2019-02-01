@@ -81,7 +81,7 @@ html {
 div.card {
   width: 250px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
+  text-align: left;
 }
 
 table, th, td {
@@ -107,16 +107,6 @@ caption {
 	text-align: center;
 }
 
-.table {
-	display: table;   /* Allow the centering to work */
-	margin: 0 auto;
-}
-ul#horizontal-list {
-	min-width: 20px;
-	list-style: none;
-	padding-top: 0px;
-	}
-ul#horizontal-list li {
-	display: inline-block;
-	color:white;
-}
+
+
+

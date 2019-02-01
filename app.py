@@ -244,7 +244,7 @@ def predicting_temp():
 	X_scaled = scaler.transform(X)
 
 	# import ridge model to predict temperature with recent features created
-	model = pickle.load(open('dtm_final_model.pkl', 'rb'))
+	model = pickle.load(open('linear_final_model.pkl', 'rb'))
 
 	y_predicted = model.predict(X_scaled)
 
@@ -270,7 +270,7 @@ def predicting_temp():
 	predictions_df = sorted_city[['Actual_avg_temp','Predicted_temp']]
 	predictions_df['Difference'] =  predictions_df.Actual_avg_temp - predictions_df.Predicted_temp
 
-	# save prediction dataframe into csv
+	# save prediction dataframe into sqlite
 	predictions_df.to_sql(city + '_prediction',con=connex, if_exists="replace", index=True)
 	return predictions_df.iloc[0].to_json(orient='records')
 
