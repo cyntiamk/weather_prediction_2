@@ -297,7 +297,7 @@ def predicting_tomorrow():
 	X_scaled = scaler.transform(X)
 
 	# import ridge model to predict temperature with recent features created
-	model = pickle.load(open('ridge_final_model.pkl', 'rb'))
+	model = pickle.load(open('linear_final_model.pkl', 'rb'))
 
 	y_predicted = model.predict(X_scaled)
 
