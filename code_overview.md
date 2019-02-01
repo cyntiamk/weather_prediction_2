@@ -108,3 +108,56 @@ y_linear_prediction = linear.predict(X_scaled)
 # use evaluation metrics to determine model performance
 ```
 ![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/model_eval.png?raw=true "model_eval")
+```python
+#save model
+import pickle
+with open('linear_final_model.pkl', 'wb') as file:
+    pickle.dump(linear, file)
+```
+
+### New data collection
+#### Open Weather API
+```python
+# function with simple API query to gather new data for prediction
+url = "http://api.openweathermap.org/data/2.5/weather?"
+units = "metric"
+city = url + "appid=" + api_key + "&q=" + city_name +"&units="+ units
+
+weather_response = requests.get(city)
+data.append(weather_response.json())
+
+# timer running every 60 minutes gathering date for the 7 cites
+```python
+
+while(True):
+    run_all_json()
+    time.sleep(3600)
+# Store into SQLite
+```
+#### Flask
+1. Query OWM for current weather conditions on selected city
+2. Retrieve recent weather stored in SQLite 
+3. Create features for selected city
+4. Scale X with saved scaler
+5. Predict the Average Temperature 
+6. Convert into Fahrenheit with the function
+```python
+def c_to_f(c):
+    return ((c*9/5) + 32).round(1)
+```
+7. Submit to JavaScript and save to SQLite
+8. Display result into HTML
+9. All the steps are repeated every time a new city is selected.
+
+#### JavaScript
+```javascript
+	d3.json(`/prediction?selected_city=${selected_city}`).then((predData) => {
+		//console.log(predData[1]) 
+		var predictedTemp = {Predicted_temp: predData[1]};
+		//console.log(predictedTemp)
+		Object.entries(predictedTemp).forEach(([key,value]) =>{
+			var span = document.getElementById("prediction").innerHTML =`${value}`;
+			span.html("")
+	})
+	});
+```
