@@ -147,7 +147,19 @@ while(True):
 ```
 #### Flask
 1. Query OWM for current weather conditions on selected city
-2. Retrieve recent weather stored in SQLite 
+2. Retrieve recent weather stored in SQLite -ordered Date by descending
+```python
+connex = sqlite3.connect("weather_predict.db") 
+	cur = connex.cursor() 
+
+	city = request.args.get('selected_city')
+
+	query_city = city + '_recent_features'
+	query = "SELECT * FROM " + query_city
+
+	city_df = pd.read_sql(query, con=connex).set_index('Date')
+	sorted_city = city_df.sort_values('Date', ascending=False)
+```
 3. Create features for selected city
 4. Scale X with saved scaler
 5. Predict the Average Temperature 
@@ -156,7 +168,12 @@ while(True):
 def c_to_f(c):
     return ((c*9/5) + 32).round(1)
 ```
-7. Submit to JavaScript and save to SQLite
+7. Submit to JavaScript and save to SQLite, 
+```python
+predictions_df.to_sql(city + '_prediction',con=connex, if_exists="replace", index=True)
+# submiting only the most recent prediction
+return predictions_df.iloc[0].to_json(orient='records')
+```
 8. Display result into HTML
 9. All the steps are repeated every time a new city is selected.
 
