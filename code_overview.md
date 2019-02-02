@@ -106,6 +106,9 @@ from sklearn.externals import joblib
 scaler_filename = "final_scaler.save"
 joblib.dump(X_scaler, scaler_filename)
 
+# scale predictors
+X_scaled = X_scaler.transform(X_clean)
+
 from sklearn.linear_model import LinearRegression
 # define the model
 linear = LinearRegression()
