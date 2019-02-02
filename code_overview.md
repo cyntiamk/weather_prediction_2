@@ -172,6 +172,63 @@ d3.json(`/prediction?selected_city=${selected_city}`).then((predData) => {
 })
 });
 ```
+#### Plotly.js
+```javascript
+var linear = {
+  x: ['Amsterdam', 'Irvine', 'Kauai', 'Kyoto','Nice', 'Manly','Salvador'],
+  y: [3.1, 2.9, 1.3, 4.0, 1.8, 2.4, 0.8],
+  type: 'scatter',
+  name: 'Linear'
+};
+
+var ridge = {
+  x: ['Amsterdam', 'Irvine', 'Kauai', 'Kyoto','Nice', 'Manly','Salvador'],
+  y: [3.7, 3.5, 1.5, 3.6, 2.1,1.7,1.2],
+  type: 'scatter',
+  name: 'Ridge'
+};
+var DTR = {
+  x: ['Amsterdam', 'Irvine', 'Kauai', 'Kyoto','Nice', 'Manly','Salvador'],
+  y: [3.3, 2.3, 1.3, 4.4,2.0,2.3,1.0],
+  type: 'scatter',
+  name: 'Decision Tree'
+};
+
+var data = [linear, ridge, DTR];
+
+var layout = {
+  title:'Temperature Variance Comparison (F)'
+};
+
+Plotly.newPlot("graph1", data,{responsive:true}, layout);
+```
+#### HTML
+```html
+<table style="width:100%">
+        <caption><strong>Models Training Perfomances</strong></caption>
+          <tr style="opacity: 0.75">
+            <th></th>
+            <th>r2_score</th>
+            <th>MSE</th>
+          </tr>
+          <tr style="opacity: 0.75">
+            <td>Linear</td>
+            <td>0.950</td>
+            <td>2.59</td>
+          </tr>
+          <tr style="opacity: 0.75">
+            <td>Ridge</td>
+            <td>0.942</td>
+            <td>2.98</td>
+            </tr>
+          <tr style="opacity: 0.75">
+            <td>DTR</td>
+            <td>0.948</td>
+            <td>2.68</td>
+          </tr>
+    </table> 
+```
+
 ### Salvador
 ![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/salvador_predictions.png?raw=true "salvador")
 ### Kauai
