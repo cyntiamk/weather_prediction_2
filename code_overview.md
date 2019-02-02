@@ -172,3 +172,17 @@ d3.json(`/prediction?selected_city=${selected_city}`).then((predData) => {
 })
 });
 ```
+### Salvador
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/salvador_predictions.png?raw=true "salvador")
+### Kauai
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/kauai_predictions.png?raw=true "model_eval")
+### Nice
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/nice_predictions.png?raw=true "model_eval")
+### Manly
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/manly_predictions.png?raw=true "model_eval")
+### Irvine
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/irvine_predictions.png?raw=true "model_eval")
+### Amsterdam
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/amsterdam_predictions.png?raw=true "model_eval")
+### Kyoto
+![alt tag](https://github.com/cyntiamk/weather_prediction_2/blob/master/Resources/kyoto_predictions.png?raw=true "model_eval")
