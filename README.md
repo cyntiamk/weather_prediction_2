@@ -30,3 +30,5 @@ Project steps:
 - File type: JSON 
 - Database: SQLite
 - Source: www.openweathermap.org
+### TODO
+- Convert database from SQLite into PostgreSQL in order to be able to deploy it to Heroku
