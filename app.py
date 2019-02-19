@@ -38,7 +38,7 @@ def new_features(df, feature, N):
     col_name = "{}_{}".format(feature, N)
     df[col_name] = numb_days_prior_measurements
 
-def create_recent_features(table_name, output_table):
+def create_recent_features(table_name):
 	# connect to sqlite database
 	connex = sqlite3.connect("weather_predict.db")  
 	cur = connex.cursor() 
@@ -77,9 +77,10 @@ def create_recent_features(table_name, output_table):
 	        for N in range(1, 4):
 	            new_features(city_renamed, feature, N)
 	clean_df = city_renamed.dropna()
-	clean_df.to_sql(name=output_table, con=connex, if_exists="replace", index=True)
+	return clean_df
+	
 
-def tomorrows_prediction(table_name, tomorrow_table):
+def tomorrows_prediction(table_name):
 	# connect to sqlite database
 	connex = sqlite3.connect("weather_predict.db")  
 	cur = connex.cursor() 
@@ -126,62 +127,11 @@ def tomorrows_prediction(table_name, tomorrow_table):
 	new_index = place_holder_row.sort_index(ascending=True)
 	most_recent_feat = new_index.reset_index()
 	tomorrow_df = most_recent_feat[-1:]
-	tomorrow_df.to_sql(name=tomorrow_table, con=connex, if_exists="replace", index=True)
-
-def run_feat():
-	manly_recent = 'manly_recent'
-	manly_output = 'Manly_recent_features'
-	create_recent_features(manly_recent,manly_output)
-
-	manly_tomorrow = 'Manly_tomorrows_features'
-	tomorrows_prediction(manly_recent,manly_tomorrow)
-
-	nice_recent = 'nice_recent'
-	nice_output = 'Nice_recent_features'
-	create_recent_features(nice_recent, nice_output)
-
-	nice_tomorrow = 'Nice_tomorrows_features'
-	tomorrows_prediction(nice_recent,nice_tomorrow)
-
-	kauai_recent = 'kauai_recent'
-	kauai_output = 'Lihue_recent_features'
-	create_recent_features(kauai_recent, kauai_output)
-
-	kauai_tomorrow = 'Lihue_tomorrows_features'
-	tomorrows_prediction(kauai_recent,kauai_tomorrow)
-
-	salvador_recent = 'salvador_recent'
-	salvador_output = 'Salvador_recent_features'
-	create_recent_features(salvador_recent,salvador_output)
-
-	salvador_tomorrow = 'Salvador_tomorrows_features'
-	tomorrows_prediction(salvador_recent,salvador_tomorrow)
-
-	kyoto_recent = 'kyoto_recent'
-	kyoto_output = 'Kyoto_recent_features'
-	create_recent_features(kyoto_recent,kyoto_output)
-
-	kyoto_tomorrow = 'Kyoto_tomorrows_features'
-	tomorrows_prediction(kyoto_recent,kyoto_tomorrow)
-
-	amsterdam_recent = 'amsterdam_recent'
-	amsterdam_output = 'Amsterdam_recent_features'
-	create_recent_features(amsterdam_recent,amsterdam_output)
-
-	amsterdam_tomorrow = 'Amsterdam_tomorrows_features'
-	tomorrows_prediction(amsterdam_recent,amsterdam_tomorrow)
-
-	irvine_recent = 'irvine_recent'
-	irvine_output = 'Irvine_recent_features'
-	create_recent_features(irvine_recent, irvine_output)  
-
-	irvine_tomorrow = 'Irvine_tomorrows_features'
-	tomorrows_prediction(irvine_recent, irvine_tomorrow)
+	return tomorrow_df
 
 def c_to_f(c):
     return ((c*9/5) + 32).round(1)
 
-run_feat()   
 
 app = Flask(__name__)
 
@@ -227,10 +177,10 @@ def predicting_temp():
 
 	city = request.args.get('selected_city')
 
-	query_city = city + '_recent_features'
-	query = "SELECT * FROM " + query_city
-
-	city_df = pd.read_sql(query, con=connex).set_index('Date')
+	query_city = city.lower() + '_recent'
+	#query = "SELECT * FROM " + query_city
+	city_df = create_recent_features(query_city)
+	#city_df = pd.read_sql(query, con=connex).set_index('Date')
 	sorted_city = city_df.sort_values('Date', ascending=False)
 	
 	predictors = ['Avg_temp_1', 'Avg_temp_2', 'Avg_temp_3', 'Temp_max_1', 'Temp_max_2',
@@ -282,10 +232,11 @@ def predicting_tomorrow():
 
 	city = request.args.get('selected_city')
 
-	query_city = city + '_tomorrows_features'
-	query = "SELECT * FROM " + query_city
+	query_city = city.lower() + '_recent'
+	#query = "SELECT * FROM " + query_city
+	city_df = tomorrows_prediction(query_city)
 
-	city_df = pd.read_sql(query, con=connex)
+	#city_df = pd.read_sql(query, con=connex)
 		
 	predictors = ['Avg_temp_1', 'Avg_temp_2', 'Avg_temp_3', 'Temp_max_1', 'Temp_max_2',
        'Temp_min_1', 'Temp_min_3', 'Avg_dwp_2', 'Avg_dwp_3', 'Min_dwp_1',
