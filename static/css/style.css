@@ -69,18 +69,45 @@
   flex-flow: row wrap;
 
 }
-* Create two unequal columns that sits next to each other */
-/* Sidebar/left column */
 .side {
   flex: 30%;
   padding: 20px;
- top: 100px;
+  top:100px;
+ }
+ .main {
+  flex: 70%;
+  padding: 20px;
+}
+
+.side-table {
+  flex: 30%;
+  padding: 20px;
+ }
+
+.main-card {
+  flex: 70%;
+  padding: 20px;
+}
+
+
+/* Main column */
+
+.main-table {
+  flex: 50%;
+  padding: 20px;
+
  }
 
 /* Main column */
-.main {
-  flex: 70%;
+.side-graph {
+  flex: 50%;
   padding: 20px;
+}
+#graph1, #graph2, #graph3 {
+	width:450px;
+	height:300px;
+	opacity: 0.75
+
 }
 
 h3 {
@@ -109,11 +136,13 @@ html {
 
 
 div.card {
-  width: 250px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: left;
 }
 
+.card-body {
+	padding: 20px;
+}
 table, th, td {
    border-collapse: collapse;
 }
@@ -136,7 +165,5 @@ table th {
 caption {
 	text-align: center;
 }
-
-@media
 
 

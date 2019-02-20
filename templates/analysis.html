@@ -12,8 +12,9 @@
         <link rel="stylesheet" href="/static/css/style.css">
     </head>
 <body style="background: linear-gradient(to right, #009999 0%, #ffffff 100%)" >
-  <nav class="navbar navbar-default">
   <div class="container-fluid">
+  <nav class="navbar navbar-default">
+  
     <div class="navbar-header">
       <a href="/" class="navbar-brand "style="color:white;">Home</a>
       <span id="tomorrow-prediction" class="tomorrow"></span>
@@ -22,12 +23,10 @@
       <li><a href="analysis.html">Analysis</a></li>
       <li><a href="https://github.com/cyntiamk/weather_prediction_2/blob/master/code_overview.md" target="_blank">Project Repo</a></li>
     </ul>
-  </div>
 </nav>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-3" style="position: absolute; top: 5em; left: 2em;">
-        <table style="width:100%">
+<div class="row-main">
+      <div class="side-table">
+        <table>
         <caption><strong>Models Training Perfomances</strong></caption>
           <tr style="opacity: 0.75">
             <th></th>
@@ -51,8 +50,8 @@
           </tr>
     </table> 
   </div>
-    <div class="col-md-8"  style="position: absolute; top: 7em; right: 0em;">
-      <div class="card" style="width:870px; padding:1em;">
+    <div class="main-card">
+      <div class="card">
        <div class="card-body">
         <p><strong>Model selection criteria:</strong></p>
           These are the models with the best scores while training. All models when predicting with new data, got very low R-squared score values and in many instances they were even negative. According to the article <a href="https://data.library.virginia.edu/is-r-squared-useless/" target="_blank">"Is R-squared Useless?"</a> ,from the Univerisity of Virginia Library, <strong>R-squared does not measure goodness of fit and suggests that in some cases it would be better to use Mean Square Error (MSE) as a measure of prediction error.</strong>
@@ -61,12 +60,11 @@
           Lasso, Support Vector Regression (SVR) and Random Forest Regressor were also tested but the predictions on new data were extremely off that I did not believe it would be relevant to include them in the analysis.
         </div>
       </div>
-    
-      </div>
     </div>
-    <div class="row">
-      <div class="col-md-4" style="position: absolute; top: 30em; left: 2em;">
-      <table style="width:25%">
+    </div>
+    <div class="row-main">
+      <div class="main-table">
+      <table>
         <caption><strong>Temperature Variance Comparison (F)</strong></caption>
           <tr style="opacity: 0.75">
             <th></th>
@@ -110,14 +108,14 @@
           </tr>
     </table> 
   </div> 
-  <div class="col-md-1"></div>
-  <div class="col-md-4" style="position: absolute; top: 25em; right: 20em;">
-    <div id="graph1" style="width:550px;height:350px; opacity: 0.75"></div>
+  
+  <div class="side-graph">
+    <div id="graph1" style= "opacity: 0.75"></div>
   </div> 
 </div>
-   <div class="row">
-      <div class="col-md-4" style="position: absolute; top: 60em; left: 2em;">
-      <table style="width:25%">
+   <div class="row-main">
+      <div class="main-table">
+      <table>
         <caption><strong>R^2_SCORE on new data (Closer to 1.0 is better)</strong></caption>
           <tr style="opacity: 0.75">
             <th></th>
@@ -161,13 +159,14 @@
           </tr>
     </table> 
   </div> 
-    <div class="col-md-4" style="position: absolute; top: 55em; right: 20em;">
-    <div id="graph2" style="width:550px;height:350px; opacity: 0.75"></div>
+  <div class="side-graph">
+    <div id="graph2"></div>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-4t" style="position: absolute; top: 90em; left: 2em;">
-    <table style="width:25%">
+
+<div class="row-main">
+  <div class="main-table">
+    <table>
         <caption><strong>MSE on new recent data (Closer to 0 is better)</strong></caption>
           <tr style="opacity: 0.75">
             <th></th>
@@ -211,16 +210,11 @@
           </tr>
     </table> 
   </div>
-    <div class="col-md-4" style="position: absolute; top: 85em; right: 20em;">
-    <div id="graph3" style="width:550px;height:350px; opacity: 0.75"></div>
+    <div class="side-graph">
+    <div id="graph3"></div>
   </div>
 </div>
-
 </div>
-
-
-
-  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>  
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="/static/js/analysis.js"></script>
