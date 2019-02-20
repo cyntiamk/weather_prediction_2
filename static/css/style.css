@@ -5,15 +5,28 @@
 
 }
 
+#panel-pos {
+	position: absolute; 
+	bottom: 10em;
+	left: 2em;
+
+}
+.panel {
+  background-color: opacity:0.5;
+  color: black;
+  height: 200px;
+  width: 170px;
+}
+
 .circle.pred {
 	background-color: transparent;
 	border-radius: 200px;
 	border: rgba(255, 255, 255, 0.8) 10px solid;
 	color: white;
-	height: 200px;
+	height: 150px;
 	font-weight: bold;
-	font-size: 125px;
-	width: 200px;
+	font-size: 95px;
+	width: 150px;
 	text-align: center;
 }
 
@@ -23,11 +36,14 @@
 	border: #428bca 1px solid;
 	color: black;
 	height: 100px;
+	width: 100px;
 	font-weight: bold;
 	font-size: 65px;
-	width: 100px;
 	text-align: center;
 	position: absolute;
+	top: -4.5em;
+	left: -.3em;
+
 }
 
 
@@ -47,6 +63,24 @@
 	color: white;
 	font-weight: bold;
 	font-size: 35px
+}
+.row-main {  
+  display: flex;
+  flex-flow: row wrap;
+
+}
+* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  flex: 30%;
+  padding: 20px;
+ top: 100px;
+ }
+
+/* Main column */
+.main {
+  flex: 70%;
+  padding: 20px;
 }
 
 h3 {
@@ -73,10 +107,6 @@ html {
     height: 100%
 }
 
-.panel {
-  background-color: opacity:0.5;
-  color: black;
-}
 
 div.card {
   width: 250px;
@@ -107,6 +137,6 @@ caption {
 	text-align: center;
 }
 
-
+@media
 
 
